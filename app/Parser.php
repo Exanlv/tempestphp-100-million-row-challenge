@@ -36,6 +36,14 @@ final class Parser
             return '';
         });
 
+        $lastCollection = '    "\/blog\/' . array_key_last($endpoints) . "\": {\n";
+        $lastVisits = array_pop($endpoints);
+        $last = '        "' . self::INDEX_DATES[array_key_last($lastVisits)] . '": ' . array_pop($lastVisits);
+        foreach ($lastVisits as $i => $count) {
+            $lastCollection .= '        "' . self::INDEX_DATES[$i] . '": ' . $count . ",\n";
+        }
+        $lastCollection .= $last . "\n    }\n";
+
         echo "{\n";
         foreach ($endpoints as $endpoint => $visits) {
             ksort($visits);
@@ -48,7 +56,8 @@ final class Parser
             }
             echo $last . "\n    },\n";
         }
-        echo '}';
+
+        echo $lastCollection . '}';
 
         ob_end_flush();
     }
