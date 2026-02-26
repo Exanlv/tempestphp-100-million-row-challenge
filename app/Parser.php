@@ -33,7 +33,7 @@ final class Parser
 
         ob_start(function($buffer) use ($file) {
             fwrite($file, $buffer);
-            return ''; // prevent output to browser
+            return '';
         });
 
         echo "{\n";
