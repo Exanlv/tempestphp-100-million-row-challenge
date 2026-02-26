@@ -36,17 +36,17 @@ final class Parser
             return ''; // prevent output to browser
         });
 
-        echo '{', PHP_EOL;
+        echo "{\n";
         foreach ($endpoints as $endpoint => $visits) {
             ksort($visits);
 
             $last = '        "' . self::INDEX_DATES[array_key_last($visits)] . '": ' . array_pop($visits);
 
-            echo '    "\/blog\/', $endpoint, '": {', PHP_EOL;
+            echo '    "\/blog\/' . $endpoint . "\": {\n";
             foreach ($visits as $i => $count) {
-                echo '        "', self::INDEX_DATES[$i], '": ', $count, ',', PHP_EOL;
+                echo '        "' . self::INDEX_DATES[$i] . '": ' . $count . ",\n";
             }
-            echo $last, PHP_EOL, '    },', PHP_EOL;
+            echo $last . "\n    },\n";
         }
         echo '}';
 
